@@ -10,7 +10,7 @@ import Foundation
 
 // сортировка пузырьком
 
-func bubbleSorting(array: [Int]) -> [Int] {
+func bubbleSorting<T: Comparable>(array: [T]) -> [T] {
     var sortArray = array
     for i in 0..<sortArray.count {
         for n in 0..<sortArray.count - i - 1 {
@@ -26,7 +26,7 @@ func bubbleSorting(array: [Int]) -> [Int] {
 
 // сортировка вставками
 
-func insertionSort(array: [Int]) -> [Int] {
+func insertionSort<T: Comparable>(array: [T]) -> [T] {
     var sortArray = array
     for i in 1..<sortArray.count {
         let change = sortArray[i]
@@ -42,10 +42,7 @@ func insertionSort(array: [Int]) -> [Int] {
 
 // сортировка слиянием
 
-func mergeSort(_ array: [Int]) -> [Int] {
-    
-    //guard array.count > 1 else { return array }
-    
+func mergeSort<T: Comparable>(_ array: [T]) -> [T] {
     if array.count == 1 {
         return array
     }
@@ -55,29 +52,26 @@ func mergeSort(_ array: [Int]) -> [Int] {
     let leftArray = mergeSort(Array(array[0..<middleIndex]))
     let rightArray = mergeSort(Array(array[middleIndex..<array.count]))
     
-    // here
     return merge(leftArray, rightArray)
 }
 
-func merge(_ left: [Int], _ right: [Int]) -> [Int] {
+func merge<T: Comparable>(_ left: [T], _ right: [T]) -> [T] {
     var leftIndex = 0
     var rightIndex = 0
     
-    var orderedArray: [Int] = []            // odereded - упорядоченный
+    var orderedArray: [T] = []
     
-    // 1
     while leftIndex < left.count && rightIndex < right.count {
-        // 1
         let leftElement = left[leftIndex]
         let rightElement = right[rightIndex]
         
-        if leftElement < rightElement { // 2
+        if leftElement < rightElement {
             orderedArray.append(leftElement)
             leftIndex += 1
-        } else if leftElement > rightElement { // 3
+        } else if leftElement > rightElement {
             orderedArray.append(rightElement)
             rightIndex += 1
-        } else { // 4
+        } else {
             orderedArray.append(leftElement)
             leftIndex += 1
             orderedArray.append(rightElement)
@@ -85,7 +79,6 @@ func merge(_ left: [Int], _ right: [Int]) -> [Int] {
         }
     }
     
-    // 2
     while leftIndex < left.count {
         orderedArray.append(left[leftIndex])
         leftIndex += 1
@@ -101,13 +94,13 @@ func merge(_ left: [Int], _ right: [Int]) -> [Int] {
 
 // быстрая сортировка с созданием массивов, ячеек памяти
 
-func quickSortWithEx(array:[Int]) -> [Int] {
+func quickSortWithEx<T: Comparable>(array:[T]) -> [T] {
     let sortedArray = array
     if sortedArray.count > 1 {
         
-        var less = [Int]()
-        var equal = [Int]()
-        var greater = [Int]()
+        var less = [T]()
+        var equal = [T]()
+        var greater = [T]()
         
         // pivot - опорная точка
         
@@ -131,7 +124,7 @@ func quickSortWithEx(array:[Int]) -> [Int] {
 
 // быстрая сортировка
 
-func quickSort(_ array: [Int]) -> [Int] {
+func quickSort<T: Comparable>(_ array: [T]) -> [T] {
     var sortArray = array
     if sortArray.count > 1 {
     var i = 0
@@ -149,7 +142,7 @@ func quickSort(_ array: [Int]) -> [Int] {
             }
         }
     referenceIndex = sortArray.count - 1 - j
-    let equal: [Int] = [sortArray[referenceIndex]]
+    let equal = [sortArray[referenceIndex]]
     let leftArray = quickSort(Array(sortArray[0..<referenceIndex]))
     let rightArray = quickSort(Array(sortArray[(referenceIndex + 1)..<array.count]))
         return leftArray + equal + rightArray
@@ -158,28 +151,3 @@ func quickSort(_ array: [Int]) -> [Int] {
     }
 }
 
-
-
-//          мой способ сортировки массива
-//
-//for i in 1..<sortArray.count {
-//    for n in 0..<i {
-//        if sortArray[i] < sortArray[n] {
-//            let change = sortArray[i]
-//            sortArray[i] = sortArray[n]
-//            sortArray[n] = change
-//        }
-//    }
-//}
-
-enum CusotmEnum {
-    case value
-    
-    var someProperty: String {
-        get {
-            return ""
-        }
-    }
-    
-    
-}
